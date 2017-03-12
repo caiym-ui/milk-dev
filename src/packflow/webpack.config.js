@@ -26,8 +26,14 @@ module.exports = {
     rules: [
       {
         test: /\.js[x]?$/,
-        use: 'babel-loader',
         exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          query: {
+            presets: ["babel-preset-env", "babel-preset-es2015", "babel-preset-react"],
+            babelrc: false,
+          },
+        },
       },
       {
         test: /\.scss$/,

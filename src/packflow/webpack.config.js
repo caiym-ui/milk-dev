@@ -10,8 +10,6 @@ module.exports = {
   entry: {
     bundle: [
       path.resolve(_dirname, './demo/'),
-      "webpack/hot/dev-server",
-      "webpack-dev-server/client?http://localhost:8080",
     ],
   },
   output: {
@@ -28,37 +26,46 @@ module.exports = {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: require.resolve('babel-loader'),
           query: {
-            presets: ["babel-preset-env", "babel-preset-es2015", "babel-preset-react"],
+            presets: ['env', 'react', 'es2015', 'stage-1'].map(function(item) {
+                        return require.resolve('babel-preset-' + item);
+                    }),
             babelrc: false,
           },
         },
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            plugins: function () {
-              return [
-                require('postcss-pxtorem')({
-                  rootValue: 100,
-                  replace: true,
-                  propList: ['*']
-                })
-              ];
+        use: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader'),
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              plugins: function () {
+                return [
+                  require('postcss-pxtorem')({
+                    rootValue: 100,
+                    replace: true,
+                    propList: ['*']
+                  })
+                ];
+              }
             }
-          }
-        }, 'sass-loader'],
+          },
+          require.resolve('sass-loader')
+        ],
       },
       {
         test: /\.svg$/,
-        use: ['babel-loader', 'rmc-svg-loader'],
+        use: [
+          require.resolve('svg-sprite-loader'),
+        ],
       },
       {
         test: /\.(jpe?g|png|gif)$/,
-        use: 'file-loader',
+        use: require.resolve('file-loader'),
       }
     ]
   },
@@ -68,7 +75,6 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new openBrowserWebpackPlugin({
       url: 'http://localhost:8080'
     }),

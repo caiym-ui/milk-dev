@@ -1,30 +1,31 @@
 {
-  "name": "rmc-manage",
+  "name": "milk-dev",
   "version": "1.0.0",
-  "description": "rmc components develop tools ",
+  "description": "milk components develop tool",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "rmc-dev": "./bin/index.js"
+    "milk-dev": "./bin/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cym-ui/rmc-manage.git"
+    "url": "git+https://github.com/caiym-ui/milk-manage.git"
   },
   "keywords": [
+    "milk",
     "react",
     "component",
     "develop",
-    "manage"
+    "tool"
   ],
   "author": "caiyongmin <645589265@qq.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cym-ui/rmc-manage/issues"
+    "url": "https://github.com/caiym-ui/milk-manage/issues"
   },
-  "homepage": "https://github.com/cym-ui/rmc-manage#readme",
+  "homepage": "https://github.com/caiym-ui/milk-manage#readme",
   "dependencies": {
     "babel-cli": "~6.23.0",
     "babel-core": "~6.23.1",

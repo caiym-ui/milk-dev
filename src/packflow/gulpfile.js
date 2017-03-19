@@ -30,6 +30,7 @@ gulp.task('server', function () {
       browserSync.reload();
       logger.info('');
       logger.success('Develop server reload...');
+      logger.info('');
     } else {
       serverStart = true;
       browserSync.init({
@@ -40,8 +41,8 @@ gulp.task('server', function () {
         },
         reloadDebounce: 500,
       }, function () {
-        logger.info('');
         logger.success('Develop server start...');
+        logger.info('');
       })
     }
   })
@@ -61,11 +62,13 @@ gulp.task('build', function () {
 
     logger.info(stats);
     logger.success('--- Build done ---');
+    logger.info('');
   });
 });
 
 gulp.task('publish', function () {
   logger.info('--- Build file before publish ---');
+  logger.info('');
   webpack(webpackProdConfig, function (err, stats) {
     if (err) {
       logger.warn(err);
@@ -73,6 +76,7 @@ gulp.task('publish', function () {
     }
 
     logger.success('--- Build done ---');
+    logger.info('');
     basicUtils.getCurrentBranch().then(function (branch) {
       inquirer.prompt([{
         name: 'version',
@@ -90,20 +94,17 @@ gulp.task('publish', function () {
         if (packageInfo.version !== answers.version) {
           packageInfo.version = answers.version;
 
-          logger.info('');
           logger.info('--- Write new version info to package.json ---');
           logger.info('');
           fs.writeFileSync(path.resolve('package.json'), JSON.stringify(packageInfo, null, '  '), 'utf8');
         }
-
-        logger.info('');
+        
         logger.info('--- Package push origin: '+ branch +' ---');
         logger.info('');
         spawn.sync('git', ['add', '.'], { stdio: 'inherit' });
         spawn.sync('git', ['commit', '-m', 'ver. ' + packageInfo.version], { stdio: 'inherit' });
         spawn.sync('git', ['push', 'origin', branch], { stdio: 'inherit' });
-
-        logger.info('');
+        
         logger.info('--- Package publish, version: '+ packageInfo.version +' ---');
         logger.info('');
         spawn.sync('npm', ['publish'], { stdio: 'inherit' });

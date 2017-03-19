@@ -1,7 +1,7 @@
 var colors = require('colors/safe');
 
 colors.setTheme({
-  info: 'green',
+  success: 'green',
   warn: 'yellow',
   help: 'cyan',
   error: 'red',
@@ -13,7 +13,7 @@ module.exports = {
     console.log(str);
   },
   success: function (str) {
-    console.log(colors.info(str));
+    console.log(colors.success(str));
   },
   warn: function (str) {
     console.log(colors.warn(str));

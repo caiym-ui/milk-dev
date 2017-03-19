@@ -1,2 +1,3 @@
-# rmc-manage
-manage rmc components develop
+# milk-dev
+
+manage milk components develop

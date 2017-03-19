@@ -22,6 +22,7 @@ program
   }
   
   logger.info('--- Run "'+ task +'" task ---');
+  logger.info('');
   
   var gulp = require('gulp');
   require('../packflow/gulpfile');

@@ -9,10 +9,10 @@ colors.setTheme({
 });
 
 module.exports = {
-  log: function (str) {
+  info: function (str) {
     console.log(str);
   },
-  info: function (str) {
+  success: function (str) {
     console.log(colors.info(str));
   },
   warn: function (str) {

@@ -75,8 +75,5 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new openBrowserWebpackPlugin({
-      url: 'http://localhost:8080'
-    }),
   ],
 }

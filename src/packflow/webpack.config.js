@@ -28,7 +28,8 @@ module.exports = {
         use: {
           loader: require.resolve('babel-loader'),
           query: {
-            presets: ['env', 'react', 'es2015', 'stage-1'].map(function(item) {
+            presets: ['env', 'react', 'es2015', 'stage-1']
+                    .map(function(item) {
                         return require.resolve('babel-preset-' + item);
                     }),
             babelrc: false,

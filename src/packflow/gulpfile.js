@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var webpack = require('webpack');
 var path = require('path');
@@ -11,12 +13,11 @@ var webpackConfig = require('./webpack.config');
 var webpackProdConfig = require('./webpack.prod.config');
 
 var logger = utils.logger;
-var basicUtils = utils.basic;
-var packageInfo = basicUtils.getPackageInfo();
+var packageInfo = utils.basic.getPackageInfo();
 
-var DIR_PATH = process.cwd();
-var SRC_PATH = path.join(DIR_PATH, 'src');
-var DEMO_PATH = path.join(DIR_PATH, 'demo');
+var __dirname = process.cwd();
+var SRC_PATH = path.join(__dirname, 'src');
+var DEMO_PATH = path.join(__dirname, 'demo');
 
 var serverStart = false;
 gulp.task('server', function () {
@@ -29,19 +30,20 @@ gulp.task('server', function () {
     if (serverStart) {
       browserSync.reload();
       logger.info('');
-      logger.success('Develop server reload...');
+      logger.success('=== Server: reload ===');
       logger.info('');
     } else {
       serverStart = true;
       browserSync.init({
         port: 8080,
         server: {
-          baseDir: DIR_PATH,
+          baseDir: __dirname,
           index: 'index.html',
         },
         reloadDebounce: 500,
       }, function () {
-        logger.success('Develop server start...');
+        logger.info('');
+        logger.success('=== Server: start ===');
         logger.info('');
       })
     }
@@ -54,20 +56,8 @@ gulp.task('start', ['server'], function () {
 })
 
 gulp.task('build', function () {
-  webpack(webpackProdConfig, function (err, stats) {
-    if (err) {
-      logger.warn(err);
-      return;
-    }
-
-    logger.info(stats);
-    logger.success('--- Build done ---');
-    logger.info('');
-  });
-});
-
-gulp.task('publish', function () {
-  logger.info('--- Build file before publish ---');
+  logger.info('');
+  logger.info('=== Build: start ===');
   logger.info('');
   webpack(webpackProdConfig, function (err, stats) {
     if (err) {
@@ -75,37 +65,55 @@ gulp.task('publish', function () {
       return;
     }
 
-    logger.success('--- Build done ---');
     logger.info('');
-    basicUtils.getCurrentBranch().then(function (branch) {
+    logger.success('=== Build: done ===');
+    logger.info('');
+  });
+});
+
+gulp.task('publish', function () {
+  logger.info('');
+  logger.info('=== Publish: build file before ===');
+  webpack(webpackProdConfig, function (err, stats) {
+    if (err) {
+      logger.warn(err);
+      return;
+    }
+
+    logger.success('=== Publish: build file done ===');
+    logger.info('');
+    utils.basic.getCurrentBranch().then(function (branch) {
       inquirer.prompt([{
         name: 'version',
         message: 'input 📦 version info, it should be "x.x.x" or "x.x.x-beta.x"',
         default: packageInfo.version,
         validate: function (input) {
-          var reg = new RegExp('^\\d+\\.\\d+\\.\\d+(\\w+\\.\\d+)?$');
+          var reg = new RegExp('^\\d+\\.\\d+\\.\\d+(-\\w+\\.\\d+)?$');
           if (!reg.test(input)) {
-            logger.warn('invalid version info, it should be "x.x.x" or "x.x.x-beta.x"')
+            logger.warn('=== invalid version info, it should be "x.x.x" or "x.x.x-beta.x"')
             return false;
           }
           return true;
         }
       }]).then(function (answers) {
         if (packageInfo.version !== answers.version) {
-          packageInfo.version = answers.version;
-
-          logger.info('--- Write new version info to package.json ---');
+          logger.info('=== Publish: write new version info to package.json ===');
           logger.info('');
-          fs.writeFileSync(path.resolve('package.json'), JSON.stringify(packageInfo, null, '  '), 'utf8');
+          packageInfo.version = answers.version;
+          fs.writeFileSync(
+            path.resolve('package.json'),
+            JSON.stringify(packageInfo, null, '  '),
+            'utf8');
         }
         
-        logger.info('--- Package push origin: '+ branch +' ---');
+        logger.info('=== Publish: push code to origin: '+ branch +' ===');
         logger.info('');
         spawn.sync('git', ['add', '.'], { stdio: 'inherit' });
-        spawn.sync('git', ['commit', '-m', 'ver. ' + packageInfo.version], { stdio: 'inherit' });
+        spawn.sync('git', ['commit', '-m', 'Chore: new version ' + packageInfo.version], { stdio: 'inherit' });
         spawn.sync('git', ['push', 'origin', branch], { stdio: 'inherit' });
         
-        logger.info('--- Package publish, version: '+ packageInfo.version +' ---');
+        logger.info('');
+        logger.info('=== Publish: publish npm package, version: '+ packageInfo.version +' ===');
         logger.info('');
         spawn.sync('npm', ['publish'], { stdio: 'inherit' });
       })

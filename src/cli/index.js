@@ -21,7 +21,7 @@ program
     return;
   }
   
-  logger.info('=== Run "'+ task +'" task ===');
+  logger.info('=== Run: "'+ task +'" task ===');
   logger.info('');
   
   var gulp = require('gulp');

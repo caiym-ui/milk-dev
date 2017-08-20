@@ -13,11 +13,12 @@ var webpackConfig = require('./webpack.config');
 var webpackProdConfig = require('./webpack.prod.config');
 
 var logger = utils.logger;
+var basicUtils = utils.basic;
 var packageInfo = utils.basic.getPackageInfo();
 
-var __dirname = process.cwd();
-var SRC_PATH = path.join(__dirname, 'src');
-var DEMO_PATH = path.join(__dirname, 'demo');
+var COMPONENT_PATH = process.cwd();
+var SRC_PATH = path.join(COMPONENT_PATH, 'src');
+var DEMO_PATH = path.join(COMPONENT_PATH, 'demo');
 
 var serverStart = false;
 gulp.task('server', function () {
@@ -37,7 +38,7 @@ gulp.task('server', function () {
       browserSync.init({
         port: 8080,
         server: {
-          baseDir: __dirname,
+          baseDir: COMPONENT_PATH,
           index: 'index.html',
         },
         reloadDebounce: 500,
@@ -53,7 +54,15 @@ gulp.task('server', function () {
 gulp.task('start', ['server'], function () {
   gulp.watch([path.join(SRC_PATH, '**', '*')], ['server']);
   gulp.watch([path.join(DEMO_PATH, '**', '*')], ['server']);
-})
+});
+
+gulp.task('test', function (done) {
+  var karamBin = require.resolve('karma/bin/karma');
+  var karmaConfig = path.join(__dirname, './../testflow/karma.phantomjs.conf.js');
+  var args = [karamBin, 'start', karmaConfig];
+
+  basicUtils.runCMD('node', args, done);
+});
 
 gulp.task('build', function () {
   logger.info('');
@@ -82,7 +91,7 @@ gulp.task('publish', function () {
 
     logger.success('=== Publish: build file done ===');
     logger.info('');
-    utils.basic.getCurrentBranch().then(function (branch) {
+    basicUtils.getCurrentBranch().then(function (branch) {
       inquirer.prompt([{
         name: 'version',
         message: 'input 📦 version info, it should be "x.x.x" or "x.x.x-beta.x"',
@@ -90,6 +99,7 @@ gulp.task('publish', function () {
         validate: function (input) {
           var reg = new RegExp('^\\d+\\.\\d+\\.\\d+(-\\w+\\.\\d+)?$');
           if (!reg.test(input)) {
+            logger.info('');
             logger.warn('=== invalid version info, it should be "x.x.x" or "x.x.x-beta.x"')
             return false;
           }

@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/caiym-ui/milk-manage.git"
+    "url": "git+https://github.com/milk-ui/milk-dev.git"
   },
   "keywords": [
     "milk",
@@ -23,9 +23,9 @@
   "author": "caiyongmin <645589265@qq.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/caiym-ui/milk-manage/issues"
+    "url": "https://github.com/milk-ui/milk-dev/issues"
   },
-  "homepage": "https://github.com/caiym-ui/milk-manage#readme",
+  "homepage": "https://github.com/milk-ui/milk-dev#readme",
   "dependencies": {
     "babel-cli": "~6.23.0",
     "babel-core": "~6.23.1",
@@ -39,9 +39,11 @@
     "clean-webpack-plugin": "~0.1.15",
     "colors": "~1.1.2",
     "commander": "~2.9.0",
+    "console-polyfill": "~0.3.0",
     "cross-env": "~3.2.3",
     "cross-spawn": "~5.1.0",
     "css-loader": "~0.27.1",
+    "es5-shim": "~4.5.8",
     "extract-text-webpack-plugin": "~2.1.0",
     "file-loader": "~0.10.1",
     "git-rev": "^0.2.1",
@@ -49,14 +51,23 @@
     "inquirer": "^3.0.6",
     "jasmine-core": "~2.5.2",
     "karma": "~1.5.0",
-    "karma-chrome-launcher": "~2.0.0",
+    "karma-chrome-launcher": "~1.0.1",
     "karma-jasmine": "~1.1.0",
+    "karma-mocha": "~1.3.0",
+    "karma-mocha-reporter": "~2.2.3",
+    "karma-phantomjs-launcher": "~1.0.4",
+    "karma-webpack": "~1.8.1",
+    "mocha": "~3.2.0",
     "node-sass": "~4.5.0",
+    "object-assign": "~4.1.1",
     "open-browser-webpack-plugin": "~0.0.5",
+    "phantomjs-prebuilt": "~2.1.7",
     "postcss": "~5.2.16",
     "postcss-loader": "~1.3.3",
     "postcss-pxtorem": "~4.0.0",
+    "react": "~15.4.2",
     "sass-loader": "~6.0.3",
+    "sinon": "~1.17.7",
     "style-loader": "~0.13.2",
     "svg-sprite-loader": "~0.3.0",
     "webpack": "~2.2.1",

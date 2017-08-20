@@ -123,7 +123,7 @@ gulp.task('publish', function () {
         spawn.sync('git', ['push', 'origin', branch], { stdio: 'inherit' });
         
         logger.info('');
-        logger.info('=== Publish: publish npm package, version: '+ packageInfo.version +' ===');
+        logger.info('=== Publish: finish publish npm package, version: '+ packageInfo.version +' ===');
         logger.info('');
         spawn.sync('npm', ['publish'], { stdio: 'inherit' });
       })

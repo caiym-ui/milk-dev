@@ -1,3 +1,3 @@
 # milk-dev
 
-manage milk components develop
+manage milk ui components develop, enjoy it!

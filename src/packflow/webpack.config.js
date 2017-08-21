@@ -4,16 +4,16 @@ var path = require('path');
 var webpack = require('webpack');
 var openBrowserWebpackPlugin = require('open-browser-webpack-plugin');
 
-var _dirname = process.cwd();
+var DIR_PATH = process.cwd();
 
 module.exports = {
   entry: {
     bundle: [
-      path.resolve(_dirname, './demo/'),
+      path.resolve(DIR_PATH, './demo/'),
     ],
   },
   output: {
-    path: path.resolve(_dirname, './build/'),
+    path: path.resolve(DIR_PATH, './build/'),
     publicPath: '/assets/',
     filename: '[name].js',
   },
@@ -76,5 +76,11 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("development")
+      },
+      "__DEV__": true,
+    }),
   ],
 }

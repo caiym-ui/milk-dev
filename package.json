@@ -70,7 +70,9 @@
     "sinon": "~1.17.7",
     "style-loader": "~0.13.2",
     "svg-sprite-loader": "~0.3.0",
+    "uglifyjs-webpack-plugin": "~0.4.6",
     "webpack": "~2.2.1",
     "webpack-dev-server": "~2.4.1"
-  }
+  },
+  "devDependencies": {}
 }

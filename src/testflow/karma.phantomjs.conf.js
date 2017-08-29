@@ -1,11 +1,13 @@
 var assign = require('object-assign');
-var getCommonKarmaConfig = require('./getCommonKarmaConfig');
+
+var utils = require('./../utils');
+var karmaUtils = utils.karma;
 
 /**
  * PhantomJS Karma config.set
  */
 module.exports = function (config) {
-  var commonKarmaConfig = getCommonKarmaConfig();
+  var commonKarmaConfig = karmaUtils.getCommonKarmaConfig();
   var phantomjsConfig = {
     browsers: ['PhantomJS_custom'],
     singleRun: true,

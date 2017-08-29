@@ -6,16 +6,16 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
-var DIR_PATH = process.cwd();
+var CWD_PATH = process.cwd();
 
 module.exports = {
   entry: {
     bundle: [
-      path.resolve(DIR_PATH, './src/'),
+      path.resolve(CWD_PATH, './src/'),
     ],
   },
   output: {
-    path: path.resolve(DIR_PATH, './build/'),
+    path: path.resolve(CWD_PATH, './build/'),
     filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
@@ -63,7 +63,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['build'], {
-      root: path.resolve(DIR_PATH, '..', '..'),
+      root: path.resolve(CWD_PATH, '..', '..'),
     }),
     new webpack.DefinePlugin({
       "process.env": {

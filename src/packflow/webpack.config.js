@@ -4,16 +4,16 @@ var path = require('path');
 var webpack = require('webpack');
 var openBrowserWebpackPlugin = require('open-browser-webpack-plugin');
 
-var DIR_PATH = process.cwd();
+var CWD_PATH = process.cwd();
 
 module.exports = {
   entry: {
     bundle: [
-      path.resolve(DIR_PATH, './demo/'),
+      path.resolve(CWD_PATH, './demo/'),
     ],
   },
   output: {
-    path: path.resolve(DIR_PATH, './build/'),
+    path: path.resolve(CWD_PATH, './build/'),
     publicPath: '/assets/',
     filename: '[name].js',
   },

@@ -3,10 +3,8 @@
 var assign = require('object-assign');
 var webpack = require('webpack');
 
-var utils = require('./../utils');
+var basicUtils = require('./basic');
 var webpackConfig = require('./../packflow/webpack.config');
-
-var basicUtils = utils.basic;
 
 /**
  * get common karma config
@@ -31,7 +29,7 @@ function getCommonKarmaConfig(options) {
     reporters: ['mocha'],
     client: {
       mocha: {
-        reporter: 'html',  // change Karma's debug.html to the mocha web erporter
+        reporter: 'html',  // change Karma's debug.html to the mocha web reporter
         ui: 'bdd',
       }
     },
@@ -57,4 +55,6 @@ function getCommonKarmaConfig(options) {
   };
 }
 
-module.exports = getCommonKarmaConfig;
+module.exports = {
+  getCommonKarmaConfig: getCommonKarmaConfig,
+};

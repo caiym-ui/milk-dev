@@ -16,9 +16,9 @@ var logger = utils.logger;
 var basicUtils = utils.basic;
 var packageInfo = utils.basic.getPackageInfo();
 
-var COMPONENT_PATH = process.cwd();
-var SRC_PATH = path.join(COMPONENT_PATH, 'src');
-var DEMO_PATH = path.join(COMPONENT_PATH, 'demo');
+var CWD_PATH = process.cwd();
+var SRC_PATH = path.join(CWD_PATH, 'src');
+var DEMO_PATH = path.join(CWD_PATH, 'demo');
 
 var serverStart = false;
 gulp.task('server', function () {
@@ -38,7 +38,7 @@ gulp.task('server', function () {
       browserSync.init({
         port: 8080,
         server: {
-          baseDir: COMPONENT_PATH,
+          baseDir: CWD_PATH,
           index: 'index.html',
         },
         reloadDebounce: 500,

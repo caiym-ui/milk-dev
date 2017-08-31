@@ -1,8 +1,8 @@
 var path = require('path');
 var gitRev = require('git-rev');
 
-var DIR_PATH = process.cwd();
-var packageInfo = require(path.join(DIR_PATH, 'package.json'));
+var CWD_PATH = process.cwd();
+var packageInfo = require(path.join(CWD_PATH, 'package.json'));
 
 module.exports = {
   getCurrentBranch: function () {
